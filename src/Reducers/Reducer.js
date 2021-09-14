@@ -1,9 +1,9 @@
-import {Delete, Add, Done, Edit} from '../Actions/ActionTypes'
+import {Delete, Add, Done, Edit, Filter, FilteredTodos} from '../Actions/ActionTypes'
 
 const initialState={
-    task : [
-       
-    ]
+    task : [],
+    filter : 'All',
+    filteredTodos : []
 }
 function Reducer (state=initialState, action) {
     switch (action.type) {
@@ -26,6 +26,19 @@ function Reducer (state=initialState, action) {
             return {
                 ...state,
                 task : state.task.map(el=> el.id==action.payload.id? {...el, text:action.payload.textInput}:el )
+            }
+        case Filter :
+            return {
+                ...state,
+                filter:action.payload.status
+            }
+        case FilteredTodos :
+            return {
+                ...state,
+                filteredTodos:  state.filter==="Completed"? state.task.filter(el=>el.isDone===true):
+                                state.filter==="Uncompleted"? state.task.filter(el=>el.isDone===false):
+                                state.filter==="All"? state.task:
+                                null
             }
         default:return state
         

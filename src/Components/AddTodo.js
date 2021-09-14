@@ -1,6 +1,7 @@
 import React , {useState} from 'react'
 import AddHandler from '../Actions/Add'
 import { useDispatch } from 'react-redux'
+import Filters from './Filter'
 
 const AddTodo = () => {
     const [input,setInput] = useState('')
@@ -10,7 +11,8 @@ const AddTodo = () => {
             AddHandler({
                 id : Math.random(), 
                 text : input,
-                isDone : false
+                isDone : false,
+                edit : false
             })
         )
         setInput('')
@@ -26,6 +28,7 @@ const AddTodo = () => {
                 onChange={(e) => setInput(e.target.value)}
             />
             <button className='Add-btn' onClick={newTask}>Add</button>
+            <Filters/>
         </div>
     )
 }
